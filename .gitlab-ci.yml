@@ -14,13 +14,13 @@ before_script:
 build:
   stage: build
   script:
-    - docker build -t gameserver-service .
-    - docker tag matchmaker parthmehrotra/gameserver-service
+    - docker build -t matchmaker .
+    - docker tag matchmaker parthmehrotra/matchmaker
     
 release:
   stage: release
   script:
-    - docker push parthmehrotra/gameserver-service
+    - docker push parthmehrotra/matchmaker
     
 deploy:
   stage: deploy
