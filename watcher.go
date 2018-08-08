@@ -119,6 +119,8 @@ func addGameServer(redisClient *redis.Client) {
 	if serviceErr != nil {
 		fmt.Println("Service ERROR")
 		fmt.Println(serviceErr)
+		fmt.Println("Attempting next port")
+		currentPort++
 		return
 	}
 
