@@ -43,6 +43,7 @@ func doEvery(d time.Duration, f func(*redis.Client), c *redis.Client) {
 	}
 }
 
+// TODO switch strings to image string variable
 func makeSpec(image string, externPort int) swarm.ServiceSpec {
 	max := uint64(1)
 
@@ -50,7 +51,7 @@ func makeSpec(image string, externPort int) swarm.ServiceSpec {
 		Annotations: swarm.Annotations{
 			Name: "sneks_gameserver_" + strconv.Itoa(externPort),
 			Labels: map[string]string{
-				"com.docker.stack.image":     "parthmehrotra/gameserver",
+				"com.docker.stack.image":     "moneygames/gameserver",
 				"com.docker.stack.namespace": "sneks",
 			},
 		},
@@ -63,7 +64,7 @@ func makeSpec(image string, externPort int) swarm.ServiceSpec {
 				Image: image,
 				Env:   []string{"GSPORT=" + strconv.Itoa(externPort)},
 				Labels: map[string]string{
-					"com.docker.stack.image":     "parthmehrotra/gameserver",
+					"com.docker.stack.image":     "moneygames/gameserver",
 					"com.docker.stack.namespace": "sneks",
 				},
 			},
@@ -111,7 +112,7 @@ func addGameServer(redisClient *redis.Client) {
 	createResponse, serviceErr :=
 		dockerClient.ServiceCreate(
 			context.Background(),
-			makeSpec("parthmehrotra/gameserver", currentPort),
+			makeSpec("moneygames/gameserver", currentPort),
 			makeOpts())
 
 	fmt.Println(createResponse)

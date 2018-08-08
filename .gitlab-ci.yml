@@ -15,12 +15,12 @@ build:
   stage: build
   script:
     - docker build -t gameserver-service .
-    - docker tag gameserver-service parthmehrotra/gameserver-service
+    - docker tag gameserver-service moneygames/gameserver-service
     
 release:
   stage: release
   script:
-    - docker push parthmehrotra/gameserver-service
+    - docker push moneygames/gameserver-service
     
 deploy:
   stage: deploy
