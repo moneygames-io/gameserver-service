@@ -15,12 +15,12 @@ build:
   stage: build
   script:
     - docker build -t gameserver-service .
-    - docker tag gameserver-service moneygames/gameserver-service
+    - docker tag gameserver-service moneygames/gameserver-service:$(git rev-parse --abbrev-ref HEAD)
     
 release:
   stage: release
   script:
-    - docker push moneygames/gameserver-service
+    - docker push moneygames/gameserver-service:$(git rev-parse --abbrev-ref HEAD)
     
 deploy:
   stage: deploy
