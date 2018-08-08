@@ -51,7 +51,7 @@ func makeSpec(image string, externPort int) swarm.ServiceSpec {
 		Annotations: swarm.Annotations{
 			Name: "sneks_gameserver_" + strconv.Itoa(externPort),
 			Labels: map[string]string{
-				"com.docker.stack.image":     "moneygames/gameserver",
+				"com.docker.stack.image":     image,
 				"com.docker.stack.namespace": "sneks",
 			},
 		},
@@ -64,7 +64,7 @@ func makeSpec(image string, externPort int) swarm.ServiceSpec {
 				Image: image,
 				Env:   []string{"GSPORT=" + strconv.Itoa(externPort)},
 				Labels: map[string]string{
-					"com.docker.stack.image":     "moneygames/gameserver",
+					"com.docker.stack.image":     image,
 					"com.docker.stack.namespace": "sneks",
 				},
 			},
