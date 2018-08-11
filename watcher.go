@@ -112,7 +112,7 @@ func addGameServer(redisClient *redis.Client) {
 	createResponse, serviceErr :=
 		dockerClient.ServiceCreate(
 			context.Background(),
-			makeSpec("moneygames/gameserver:master", currentPort),
+			makeSpec("moneygames/gameserver:redis-objects", currentPort),
 			makeOpts())
 
 	fmt.Println(createResponse)
