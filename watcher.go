@@ -20,7 +20,7 @@ var currentPort int
 func main() {
 	currentPort = 10000
 	client := redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     "redis-gameservers:6379",
 		Password: "",
 		DB:       0,
 	})
