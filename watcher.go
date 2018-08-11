@@ -124,7 +124,7 @@ func addGameServer(redisClient *redis.Client) {
 		return
 	}
 
-	redisErr := redisClient.Set(strconv.Itoa(currentPort), "idle", 0).Err()
+	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing", 0).Err()
 	if redisErr != nil {
 		fmt.Println("REDDIS ERROR")
 		fmt.Println(serviceErr)
@@ -137,8 +137,8 @@ func checkRedis(c *redis.Client) {
 	keys, _ := c.Keys("*").Result()
 
 	for _, key := range keys {
-		status, _ := c.Get(key).Result()
-		if status == "idle" {
+		status, _ := c.HGet(key, "status").Result()
+		if status == "idle" || status == "initializing" {
 			idleCount++
 		}
 	}
