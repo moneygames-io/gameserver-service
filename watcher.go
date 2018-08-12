@@ -125,6 +125,10 @@ func addGameServer(redisClient *redis.Client) {
 	}
 
 	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing")
+	if redisErr != nil {
+		fmt.Println("REDDIS ERROR")
+		fmt.Println(serviceErr)
+	}
 	currentPort++
 }
 
