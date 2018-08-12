@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strconv"
 	"time"
 
@@ -112,7 +113,7 @@ func addGameServer(redisClient *redis.Client) {
 	createResponse, serviceErr :=
 		dockerClient.ServiceCreate(
 			context.Background(),
-			makeSpec("moneygames/gameserver:master", currentPort),
+			makeSpec("moneygames/gameserver:"+os.Getenv("GSTAG"), currentPort),
 			makeOpts())
 
 	fmt.Println(createResponse)
@@ -124,10 +125,10 @@ func addGameServer(redisClient *redis.Client) {
 		return
 	}
 
-	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing")
+	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing").Err()
 	if redisErr != nil {
 		fmt.Println("REDDIS ERROR")
-		fmt.Println(serviceErr)
+		fmt.Println(redisErr)
 	}
 	currentPort++
 }
