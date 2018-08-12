@@ -112,7 +112,7 @@ func addGameServer(redisClient *redis.Client) {
 	createResponse, serviceErr :=
 		dockerClient.ServiceCreate(
 			context.Background(),
-			makeSpec("moneygames/gameserver:redis-objects", currentPort),
+			makeSpec("moneygames/gameserver:master", currentPort),
 			makeOpts())
 
 	fmt.Println(createResponse)
@@ -124,11 +124,7 @@ func addGameServer(redisClient *redis.Client) {
 		return
 	}
 
-	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing", 0).Err()
-	if redisErr != nil {
-		fmt.Println("REDDIS ERROR")
-		fmt.Println(serviceErr)
-	}
+	redisErr := redisClient.HSet(strconv.Itoa(currentPort), "status", "initializing")
 	currentPort++
 }
 
