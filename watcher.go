@@ -130,6 +130,9 @@ func addGameServer(redisClient *redis.Client) {
 		fmt.Println("REDDIS ERROR")
 		fmt.Println(redisErr)
 	}
+	redisClient.HSet(strconv.Itoa(currentPort), "players", "0")
+	redisClient.HSet(strconv.Itoa(currentPort), "pot", "0")
+
 	currentPort++
 }
 
