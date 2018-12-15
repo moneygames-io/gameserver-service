@@ -1,3 +1,4 @@
 [submodule "gameserver"]
 	path = gameserver
 	url = git@git.moneygames.io:sneks/gameserver.git
+	branch = master
